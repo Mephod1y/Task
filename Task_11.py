@@ -93,8 +93,8 @@ functions = {
     'exit': exit_func,
     'close': exit_func,
     'good bye': exit_func,
-    'birth': add_birth
-    # 'birth': show_birth
+    'birth': add_birth,
+    'day': show_birth
 }
 
 def parser_input(user_input):
