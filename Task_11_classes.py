@@ -67,7 +67,8 @@ class Record():
                 return f"{phone_old} changed to {phone_new}"
     
     def add_birthday(self, birthday):
-        self.birthday = Birthday(birthday)
+        # self.birthday = Birthday(birthday)
+        self.birthday = birthday
         return f"{birthday} added to {self.name}"
 
     def days_to_birthday(self):
