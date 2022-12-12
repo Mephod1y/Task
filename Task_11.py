@@ -78,6 +78,12 @@ def add_birth(user_input):
     birthday = user_input[1]
     return contacts_dict[name].add_birthday(birthday)
 
+@input_error
+def show_birth(user_input):
+    user_input = user_input.split()
+    name = user_input[0]
+    return Record(name).days_to_birthday()
+
 functions = {
     'hello': hello,
     'add': add_name_phone,
@@ -87,7 +93,8 @@ functions = {
     'exit': exit_func,
     'close': exit_func,
     'good bye': exit_func,
-    'birth': add_birth
+    'add_b': add_birth,
+    'birth': show_birth
 }
 
 def parser_input(user_input):
