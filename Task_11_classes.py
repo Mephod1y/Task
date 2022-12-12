@@ -71,7 +71,6 @@ class Record():
         return f"{birthday} added to {self.name}"
 
     def days_to_birthday(self):
-        # birthday = self.birthday
         today = datetime.today()
         bday = datetime(2022,int(self.birthday.split('.')[1]),int(self.birthday.split('.')[2]))
         bday1 = datetime(2023,int(self.birthday.split('.')[1]),int(self.birthday.split('.')[2]))
