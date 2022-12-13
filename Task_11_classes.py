@@ -7,48 +7,50 @@ class AddressBook(UserDict):
         self.data[record.name.value] = record
 
     def iterator(self, records):
-        def __init__(self):
-            self.current_value = 0
-            self.records = records
-            names = []
-            for i in range(self.records):
-                names.append(self.data[list(d.keys())[i]])
-            self.current_value += self.records
-            yield names
-
+        self.current_value = 0
+        self.records = records
+        names = []
+        for i in range(self.records):
+            names.append(self.data[list(self.data.keys())[i]])
+        self.current_value += self.records
+        yield names
 
 class Field():
     def __init__(self, value):
+        self._value = None
         self.value = value
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+       self._value = new_value
 
 class Name(Field):
     def __init__(self, value):
         self.value = value
 
-
 class Phone(Field):
     def __init__(self, value):
         self.value = value
 
-
 class Birthday(Field):
-    def __init__(self, value):
-        self.value = value
+     # def __init__(self, value):
+     #     super().__init__(value)
+     #     # self.__value = value
+     #
+     # @property
+     # def value(self):
+     #     return self.__value
 
-
-   #  def __init__(self):
-   #      self.__value = None
-   #
-   # @property
-   #  def value(self):
-   #      return self.__value
-   #
-   #  @value.setter
-   #  def value(self, new_value):
-   #      if re.match('\d{4}[.]\d{2}[.]\d{2}', new_value):
-   #          self.__value = new_value
-   #      else:
-   #          print('Input date in format YYYY.MM.DD')
+     @Field.value.setter
+     def value(self, new_value):
+         if re.match('\d{4}[.]\d{2}[.]\d{2}', new_value):
+             self._value = new_value
+         else:
+             print("Input date in format YYYY.MM.DD")
 
 class Record():
     def __init__(self, name, *phones):
