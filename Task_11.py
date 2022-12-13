@@ -25,6 +25,15 @@ def exit_func():
     return "Good bye"
 
 @input_error
+def show_all():  # функція повертає всі записи в словнику AddressBook
+    contacts = "All data in AddressBook:"
+    for name in contacts_dict:
+        contacts += f'\n{name}: '
+        for phone in contacts_dict[name].phones:
+            contacts += f"{phone.value}"
+    return contacts
+
+@input_error
 def name_phone(data):  # функція перевіряє на коректність введення ім'я телефону
     new_data = data.strip().split(" ")
     name = new_data[0]
@@ -44,15 +53,6 @@ def add_name_phone(data):  # функція додає ведене ім'я те
     record.put_phone_list(phones)
     contacts_dict.add_record(record)
     return f'You added new contact: {name} with this {phones}'
-
-@input_error
-def show_all():  # функція повертає всі записи в словнику AddressBook
-    contacts = "All data in AddressBook:"
-    for name in contacts_dict:
-        contacts += f'\n{name}: '
-        for phone in contacts_dict[name].phones:
-            contacts += f"{phone.value}"
-    return contacts
 
 @input_error
 def change_phone(user_input):  # функція змінює телефон по ключу в словнику AddressBook
