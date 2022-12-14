@@ -6,14 +6,18 @@ class AddressBook(UserDict):
     def add_record(self, record):
         self.data[record.name.value] = record
 
-    def iterator(self, records):
-        self.current_value = 0
-        self.records = records
-        names = []
-        for i in range(self.records):
-            names.append(self.data[list(self.data.keys())[i]])
-        self.current_value += self.records
-        yield names
+    def iterator(self, count = 5):
+        page = []
+        i = 0
+        for record in self.data.values():
+            page.append(record)
+            i += 1
+            if i == count:
+                yield page
+                page = []
+                i = 0
+        if page:
+            yield page
 
 class Field():
     def __init__(self, value):
@@ -29,12 +33,16 @@ class Field():
        self._value = new_value
 
 class Name(Field):
-    def __init__(self, value):
-        self.value = value
+    pass
 
 class Phone(Field):
-    def __init__(self, value):
-        self.value = value
+
+    @Field.value.setter
+    def value(self, new_value):
+        if bool(re.match('\d{3}.\d{3}.\d{2}.\d{2}', new_value)):
+            self._value = new_value
+        else:
+            raise ValueError("Input phone in format ***-***-**-**")
 
 class Birthday(Field):
 
