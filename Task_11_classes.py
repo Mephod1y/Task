@@ -37,20 +37,13 @@ class Phone(Field):
         self.value = value
 
 class Birthday(Field):
-     # def __init__(self, value):
-     #     super().__init__(value)
-     #     # self.__value = value
-     #
-     # @property
-     # def value(self):
-     #     return self.__value
 
      @Field.value.setter
      def value(self, new_value):
-         if re.match('\d{4}[.]\d{2}[.]\d{2}', new_value):
-             self._value = new_value
+         if bool(re.match('\d{4}[.]\d{2}[.]\d{2}', new_value)):
+             self._value = datetime.strptime(new_value, "%Y.%m.%d")
          else:
-             print("Input date in format YYYY.MM.DD")
+            raise ValueError("Input date in format YYYY.MM.DD")
 
 class Record():
     def __init__(self, name, *phones):
@@ -92,12 +85,11 @@ class Record():
                 return f"{phone_old} changed to {phone_new}"
 
     def add_birthday(self, birthday):
-        self.birthday = birthday
+        self.birthday = Birthday(birthday)
         return f"{birthday} added to {self.name.value}"
 
     def days_to_birthday(self):
         today = datetime.today()
-        bday = datetime(2022, int(self.birthday.split('.')[1]), int(self.birthday.split('.')[2]))
-        bday1 = datetime(2023, int(self.birthday.split('.')[1]), int(self.birthday.split('.')[2]))
-        timediff = (bday - today).days + 1 if (today - bday).days < 0 else (bday1 - today).days + 1
+        bday = self.birthday.value
+        timediff = (bday - today).days + 1 if (today - bday).days < 0 else (datetime(bday.year + 1, bday.month,bday.day) - today).days + 1
         return f'{timediff} days till {self.name.value} birthday left!'
