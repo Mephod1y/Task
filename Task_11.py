@@ -34,19 +34,10 @@ def show_all():  # функція повертає всі записи в сло
     return contacts
 
 @input_error
-def name_phone(data):  # функція перевіряє на коректність введення ім'я телефону
+def add_name_phone(data):  # функція додає ведене ім'я телефон до екземляру класу Record
     new_data = data.strip().split(" ")
     name = new_data[0]
-    phone = new_data[1]
-    if name.isnumeric():
-        raise ValueError('Wrong name')
-    if not phone.isnumeric():
-        raise ValueError('Wrong phone')
-    return name, phone
-
-@input_error
-def add_name_phone(data):  # функція додає ведене ім'я телефон до екземляру класу Record
-    name, phones = name_phone(data)
+    phones = new_data[1]
     if name in contacts_dict:
         raise ValueError('This contact already exist.')
     record = Record(name)
